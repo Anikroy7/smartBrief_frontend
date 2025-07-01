@@ -4,9 +4,9 @@ import type { TResponseRedux } from "../../types";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: `${import.meta.env.VITE_SERVER_BASE_URL}/api`,
+    baseUrl: `${import.meta.env.VITE_SERVER_BASE_URL}/api/v1`,
     credentials: "same-origin",
-    prepareHeaders: (headers) => {
+/*     prepareHeaders: (headers) => {
       const stringUser = localStorage.getItem('userInfo');
       if (stringUser) {
         const userInfo = JSON.parse(stringUser)
@@ -16,7 +16,7 @@ export const authApi = createApi({
         }
       }
       return headers;
-    },
+    }, */
   }),
 
   endpoints: (builder) => ({
@@ -24,7 +24,7 @@ export const authApi = createApi({
     createUser: builder.mutation({
       query: (data) => {
         return {
-          url: "/auth/signup",
+          url: "/users/create",
           method: "POST",
           body: data,
         };
@@ -42,7 +42,7 @@ export const authApi = createApi({
       transformResponse: (response: TResponseRedux) => {
         return {
           email: response.data.email,
-          token: response.token,
+          token: response.accessToken,
           _id: response.data._id,
           role: response.data.role
         }

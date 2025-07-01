@@ -1,12 +1,16 @@
 "use client";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SBInput from "../../components/ui/form/SBInput";
 import SBForm from "../../components/ui/form/SBForm";
 import type { SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signupValidationSchema } from "../../validation/auth.validation";
 import MainLayout from "../../components/layouts/MainLayout";
+import { useCreateUserMutation } from "../../redux/api/authApi";
+import type { TError, TUser } from "../../types";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 
 
 interface RegisterFormInputs {
@@ -17,20 +21,36 @@ interface RegisterFormInputs {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
+  const [createUser, { isLoading, error, isError, isSuccess, data }] =
+    useCreateUserMutation<{
+      error: TError | undefined;
+      isSuccess: boolean | undefined;
+      isError: boolean | undefined;
+      isLoading: boolean | undefined;
+      data: TUser | undefined
+    }>();
 
-
-  
-  const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
-    console.log("Register data:", data);
-
-    if (data.password !== data.confirmPassword) {
-      // TODO: toast or error message
-      console.error("Passwords do not match");
-      return;
+  useEffect(() => {
+    if (error) {
+      error.data.errorSources.map((e) => toast.error(e.message));
     }
+    if (isSuccess && data) {
+      navigate("/login");
+    }
+  }, [isError, isSuccess]);
+
+  const onSubmit: SubmitHandler<RegisterFormInputs> = (data) => {
+    createUser({
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
 
     // TODO: send API request to register endpoint
   };
+
+  console.log("Register error:", isLoading, error, isError, isSuccess, data);
 
   return (
     <MainLayout>
@@ -70,10 +90,17 @@ const Register = () => {
                 placeholder="Re-type your password"
                 required
               />
-
-              <button className="btn btn-primary w-full mt-2" type="submit">
-                Register
-              </button>
+              {
+                !isLoading ? <button
+                  type="submit"
+                  className={`btn btn-primary w-full mt-2`}
+                >
+                  Register
+                </button>
+                  : <button className="btn w-full mt-2">
+                    <span className="loading loading-spinner"></span>
+                    Submiting...
+                  </button>}
             </SBForm>
 
             <p className="text-sm text-center mt-4">

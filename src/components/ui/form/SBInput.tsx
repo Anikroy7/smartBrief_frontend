@@ -19,7 +19,6 @@ const SBInput = React.memo(function SBInput({
   } = useFormContext();
 
   const errorMessage = errors?.[name]?.message as string | undefined;
-console.log(errors)
   return (
     <Controller
       name={name}

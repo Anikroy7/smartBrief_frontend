@@ -10,6 +10,13 @@ export interface IInput {
   placeholder?: string;
 }
 
+export type TUser = {
+  userId:string;
+  name: string;
+  email: string;
+  role: "user" | "admin";
+};
+
 export type TError = {
   data: {
     message: string;
@@ -31,7 +38,7 @@ export type TResponse = {
   error: TError;
   success: boolean;
   message: string;
-  token?: string
+  accessToken?: string
 }
 
 
