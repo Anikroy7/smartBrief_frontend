@@ -9,7 +9,7 @@ const MySmmaries = () => {
 
     return (
         <div className="space-y-4">
-            <h2 className="text-xl font-bold">All Summaries</h2>
+            <h2 className="text-xl font-bold">My Summaries</h2>
             {summariesData?.data?.length === 0 ? (
                 <p>No summaries yet.</p>
             ) : (

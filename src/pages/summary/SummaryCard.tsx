@@ -12,7 +12,6 @@ export default function SummaryCard({ summary }: { summary: TSummary }) {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [editedSummary, setEditedSummary] = useState(summary.summaryText || "");
     const [showRePromptModal, setShowRePromptModal] = useState(false);
-    const userInfo = useAppSelector(state => state.auth);
 
 
 
@@ -35,7 +34,7 @@ export default function SummaryCard({ summary }: { summary: TSummary }) {
 
                 <div className="flex gap-3 mt-3">
 
-                    {(role === "admin" || role === "editor") && (
+                    {(role === "admin" || role === "editor" || role === "user") && (
                         <>
                             <button
                                 className="btn btn-sm btn-outline"
