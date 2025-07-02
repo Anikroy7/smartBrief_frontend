@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import {
-  useDeleteUserMutation,
+  
   useGetUsersQuery,
   useUpdateUserMutation,
 } from "../../redux/api/authApi";
@@ -108,12 +108,12 @@ const UserManagement = () => {
                 </select>
               </td>
               <td>
-                <button
+                {user.role!=="admin"&&<button
                   onClick={() => handleDeleteUser(user._id)}
                   className="btn btn-sm btn-error mr-3"
                 >
                   Delete
-                </button>
+                </button>}
                 <button
                   onClick={() => {
                     setSelectedUser(user);

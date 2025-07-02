@@ -4,14 +4,15 @@ import moment from "moment";
 import EditSummaryModal from "../../components/ui/modal/EditSummaryModal";
 import DeleteSummaryModal from "../../components/ui/modal/DeleteSummaryModal";
 import RePromptModal from "../../components/ui/modal/RePromptModal";
+import { useAppSelector } from "../../redux/hook";
 
 export default function SummaryCard({ summary }: { summary: TSummary }) {
-    // const { userId, role } = useAppSelector((state) => state.auth);
+    const { role } = useAppSelector((state) => state.auth);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [editedSummary, setEditedSummary] = useState(summary.summaryText || "");
     const [showRePromptModal, setShowRePromptModal] = useState(false);
-
+    const userInfo = useAppSelector(state => state.auth);
 
 
 
@@ -33,32 +34,31 @@ export default function SummaryCard({ summary }: { summary: TSummary }) {
                 <p className="mt-2 whitespace-pre-wrap">{summary.summaryText}</p>
 
                 <div className="flex gap-3 mt-3">
-                    <button
-                        className="btn btn-sm btn-outline"
-                        onClick={() => setShowRePromptModal(true)}
-                    >
-                        Re-prompt
-                    </button>
 
-                    {/* {(role === "admin" || role === "editor" || summary.user === userId) && ( */}
-                    <>
-                        <button
-                            className="btn btn-sm btn-warning"
-                            onClick={() => {
-                                setEditedSummary(summary.summaryText || "");
-                                setShowEditModal(true);
-                            }}
-                        >
-                            Edit
-                        </button>
-                        <button
-                            className="btn btn-sm btn-error"
-                            onClick={() => setShowDeleteModal(true)}
-                        >
-                            Delete
-                        </button>
-                    </>
-                    {/* )} */}
+                    {(role === "admin" || role === "editor") && (
+                        <>
+                            <button
+                                className="btn btn-sm btn-outline"
+                                onClick={() => setShowRePromptModal(true)}
+                            >
+                                Re-prompt
+                            </button>
+                            <button
+                                className="btn btn-sm btn-warning"
+                                onClick={() => {
+                                    setEditedSummary(summary.summaryText || "");
+                                    setShowEditModal(true);
+                                }}
+                            >
+                                Edit
+                            </button>
+                            <button
+                                className="btn btn-sm btn-error"
+                                onClick={() => setShowDeleteModal(true)}
+                            >
+                                Delete
+                            </button>
+                        </>)}
                 </div>
             </div>
 

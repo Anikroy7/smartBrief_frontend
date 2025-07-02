@@ -27,6 +27,7 @@ export const summaryApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Summaries"],
     }),
     rePromptSummary: builder.mutation({
       query: (summaryData) => ({
@@ -60,6 +61,13 @@ export const summaryApi = createApi({
       providesTags: ["Summaries"]
 
     }),
+    getMySummaries: builder.query({
+      query: () => ({
+        url: `/summary/my-summaries`,
+        method: "GET",
+      }),
+      providesTags: ["Summaries"]
+    }),
 
     deleteSummary: builder.mutation({
       query: (summaryId) => ({
@@ -78,5 +86,6 @@ export const {
   useGetUserSummariesQuery,
   useDeleteSummaryMutation,
   useUpdateSummaryMutation,
-  useRePromptSummaryMutation
+  useRePromptSummaryMutation,
+  useGetMySummariesQuery
 } = summaryApi;

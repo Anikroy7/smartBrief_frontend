@@ -4,8 +4,8 @@ import { useAppSelector } from '../../redux/hook'
 
 export default function Sidebar() {
     const userInfo = useAppSelector(state => state.auth);
-      const paths = location.pathname.split("/");
-      
+    const paths = location.pathname.split("/");
+    console.log('userInfo,', userInfo);
 
     return (
         <>
@@ -37,7 +37,7 @@ export default function Sidebar() {
                         </Link>
                     </li>
 
-                    {/* {userInfo?.role === "admin" && ( */}
+                    {userInfo?.role === "admin" && (
                         <li>
                             <Link
                                 to="/dashboard/users"
@@ -47,7 +47,7 @@ export default function Sidebar() {
                                 User Management
                             </Link>
                         </li>
-                     {/* )} */}
+                    )}
                 </ul>
             </div>
         </>

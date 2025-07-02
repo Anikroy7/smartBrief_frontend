@@ -1,23 +1,18 @@
 
-import { useGetUserSummariesQuery } from '../../redux/api/summaryApi';
-import type { TSummary } from '../../types';
-import SummaryCard from '../summary/SummaryCard';
+import { useAppSelector } from '../../redux/hook';
+import AllSmmaries from './AllSummaries';
+import MySmmaries from './MySummaries';
 
 const Summaries = () => {
-
-  const { data: summariesData } = useGetUserSummariesQuery(undefined);
+  const userInfo = useAppSelector(state => state.auth);
+  console.log(userInfo)
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold">Your Summaries</h2>
-      {summariesData?.data?.length === 0 ? (
-        <p>No summaries yet.</p>
-      ) : (
-        summariesData?.data?.map((summary:TSummary) => (
-          <SummaryCard key={summary._id} summary={summary} />
-        ))
-      )}
-    </div>
+    <>
+      {
+        (userInfo.role === 'admin' || userInfo.role === 'reviewer' || userInfo.role === 'editor') ? <AllSmmaries /> : <MySmmaries />
+      }
+    </>
   );
 };
 

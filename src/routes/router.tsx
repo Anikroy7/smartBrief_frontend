@@ -7,11 +7,16 @@ import DashboardLayout from "../components/layouts/DashboardLayout";
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import Summaries from "../pages/dashboard/Summaries";
 import UserManagement from "../pages/dashboard/UserManagement";
+import PrivateRoute from "../pages/auth/PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: (
+      <PrivateRoute>
+        <App />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/login",
@@ -21,25 +26,21 @@ const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
+
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
     children: [
-      {
-        index: true, 
-        element: <DashboardHome />,
-      },
-
-      {
-        path: "summaries",
-        element: <Summaries />,
-      },
-      {
-        path: "users", 
-        element: <UserManagement />,
-      },
+      { index: true, element: <DashboardHome /> },
+      { path: "summaries", element: <Summaries /> },
+      { path: "users", element: <UserManagement /> },
     ],
   },
+
   {
     path: "*",
     element: <NotFoundPage />,

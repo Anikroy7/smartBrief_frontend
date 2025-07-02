@@ -1,14 +1,23 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../redux/hook";
 import { Toaster } from "react-hot-toast";
-import { logout } from "../../redux/features/authSlice";
+import { logout, setUser } from "../../redux/features/authSlice";
 import { Menu } from "lucide-react"; // Lucide icon
 import Sidebar from "../dashboard/Sidebar";
+import { useEffect } from "react";
 
 export default function Dashboard() {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
+  const storedUserInfo = localStorage.getItem("userInfo");
+  const userInfo = storedUserInfo ? JSON.parse(storedUserInfo) : null;
+
+  useEffect(() => {
+    if (userInfo?.email) {
+      dispatch(setUser({ ...userInfo }));
+    }
+  }, [userInfo]);
 
   const handleLogout = () => {
     dispatch(logout({}));
