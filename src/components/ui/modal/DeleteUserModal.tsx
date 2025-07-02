@@ -10,7 +10,7 @@ export default function DeleteUserModal({ confirmUserId }: { confirmUserId: stri
         try {
             await deleteUser(confirmUserId).unwrap();
             toast.success("User deleted");
-        } catch (error) {
+        } catch  {
             toast.error("Failed to delete user");
         }
     };

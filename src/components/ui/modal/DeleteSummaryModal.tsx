@@ -13,7 +13,7 @@ export default function DeleteSummaryModal({ summary, setShowDeleteModal }: { su
             await deleteSummary(summary._id!).unwrap();
             toast.success("Summary deleted");
             setShowDeleteModal(false);
-        } catch (err) {
+        } catch {
             toast.error("Failed to delete summary");
         }
     };

@@ -25,7 +25,7 @@ const UserManagement = () => {
     try {
       await updateUser({ userId: userId, userData: { role: newRole } }).unwrap();
       toast.success("User role updated");
-    } catch (error) {
+    } catch{
       toast.error("Failed to update role");
     } finally {
       setUpdatingUserId(null);
@@ -46,7 +46,7 @@ const UserManagement = () => {
     try {
       await updateUser({ userId: userId, userData: { name: newName } }).unwrap();
       toast.success("Name updated");
-    } catch (error) {
+    } catch {
       toast.error("Failed to update name");
     } finally {
       setSavingNameId(null);

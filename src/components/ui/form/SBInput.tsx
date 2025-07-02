@@ -1,9 +1,7 @@
-
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import type { IInput } from "../../../types";
 
-interface IProps extends IInput {}
 
 const SBInput = React.memo(function SBInput({
   name,
@@ -12,13 +10,14 @@ const SBInput = React.memo(function SBInput({
   required = false,
   disabled = false,
   placeholder = "",
-}: IProps) {
+}: IInput) {
   const {
     control,
     formState: { errors },
   } = useFormContext();
 
   const errorMessage = errors?.[name]?.message as string | undefined;
+
   return (
     <Controller
       name={name}

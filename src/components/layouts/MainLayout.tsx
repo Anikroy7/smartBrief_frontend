@@ -14,7 +14,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         if (userInfo?.email) {
             dispatch(setUser({ ...userInfo }));
         }
-    }, [userInfo]);
+    }, [userInfo, dispatch]);
 
     return (
         <div className="min-h-screen flex flex-col">

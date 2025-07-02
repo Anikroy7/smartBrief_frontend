@@ -17,7 +17,7 @@ export default function EditSummaryModal({ summary, setShowEditModal , editedSum
             }).unwrap();
             toast.success("Summary updated");
             setShowEditModal(false);
-        } catch (err) {
+        } catch {
             toast.error("Failed to update summary");
         }
     };

@@ -35,7 +35,7 @@ export default function RePromptModal({ summary, setShowRePromptModal }: Props) 
       setSummaryId(newId);
       setPolling(true);
       toast.success("Submitted. Waiting for response...");
-    } catch (err) {
+    } catch {
       toast.error("Failed to re-prompt");
     }
   };

@@ -17,7 +17,7 @@ export default function Dashboard() {
     if (userInfo?.email) {
       dispatch(setUser({ ...userInfo }));
     }
-  }, [userInfo]);
+  }, [userInfo, dispatch]);
 
   const handleLogout = () => {
     dispatch(logout({}));
