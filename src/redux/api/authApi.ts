@@ -6,7 +6,7 @@ export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${import.meta.env.VITE_SERVER_BASE_URL}/api/v1`,
     credentials: "same-origin",
-/*     prepareHeaders: (headers) => {
+    prepareHeaders: (headers) => {
       const stringUser = localStorage.getItem('userInfo');
       if (stringUser) {
         const userInfo = JSON.parse(stringUser)
@@ -16,11 +16,13 @@ export const authApi = createApi({
         }
       }
       return headers;
-    }, */
+    },
   }),
 
   endpoints: (builder) => ({
-
+    getUsers: builder.query({
+      query: () => "/users/all",
+    }),
     createUser: builder.mutation({
       query: (data) => {
         return {
@@ -29,6 +31,13 @@ export const authApi = createApi({
           body: data,
         };
       },
+    }),
+    updateUserName: builder.mutation({
+      query: ({ userId, name }) => ({
+        url: `/users/${userId}/name`,
+        method: "PATCH",
+        body: { name },
+      }),
     }),
 
     loginUser: builder.mutation({
@@ -48,6 +57,19 @@ export const authApi = createApi({
         }
       },
     }),
+    updateUserRole: builder.mutation({
+      query: ({ userId, role }) => ({
+        url: `/users/${userId}/role`,
+        method: "PATCH",
+        body: { role },
+      }),
+    }),
+    deleteUser: builder.mutation({
+      query: (userId) => ({
+        url: `/users/${userId}`,
+        method: "DELETE",
+      }),
+    }),
 
   }),
 });
@@ -55,4 +77,8 @@ export const authApi = createApi({
 export const {
   useCreateUserMutation,
   useLoginUserMutation,
+  useGetUsersQuery,
+  useUpdateUserRoleMutation,
+  useDeleteUserMutation,
+  useUpdateUserNameMutation
 } = authApi;

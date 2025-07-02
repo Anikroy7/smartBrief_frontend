@@ -1,10 +1,10 @@
 import MainLayout from "./components/layouts/MainLayout"
+import CreateSummary from "./pages/summary/CreateSummary"
 function App() {
 
   return (
     <MainLayout>
-      <h1>Welcome</h1>
-      <button className="btn btn-secondary">Secondary</button>
+      <CreateSummary />
     </MainLayout>
 
   )

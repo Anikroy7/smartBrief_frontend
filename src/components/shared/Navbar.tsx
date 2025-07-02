@@ -27,22 +27,6 @@ const Navbar = () => {
                     {user?.email && (
                         <>
                             <li><Link to="/dashboard">Dashboard</Link></li>
-                            <li><Link to="/summarize">Summarize</Link></li>
-                            <li><Link to="/history">History</Link></li>
-                            <li><Link to="/credits">Credits</Link></li>
-
-                            {/* Role-based items */}
-                            {user.role === 'admin' && (
-                                <li><Link to="/admin/users">User Management</Link></li>
-                            )}
-                            {(user.role === 'admin' || user.role === 'editor') && (
-                                <li><Link to="/admin/summaries">Manage Summaries</Link></li>
-                            )}
-                            {user?.role === 'reviewer' && (
-                                <li><Link to="/review/summaries">All Summaries</Link></li>
-                            )}
-
-                            <li><Link to="/profile">Profile</Link></li>
                             <li><button onClick={() => handleLogout()} >Logout</button></li>
                         </>
                     )}
